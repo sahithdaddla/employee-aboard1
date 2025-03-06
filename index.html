@@ -1,0 +1,1917 @@
+Employee Code
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Onboarding Form</title>
+  <style>
+    /* Base styles */
+    body {
+        background: #f0f4f8;
+        color: #212529;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        min-height: 100vh;
+        margin: 0;
+        max-width: 1400px;    
+    }
+
+    .container {
+        width: 90%;
+        height: 100vh;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        perspective: 1000px;
+    }
+
+    .section-heading {
+        font-size: 1.5rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+        color: #007bff;
+        text-transform: uppercase;
+        font-family: 'Tahoma', sans-serif;
+        position: relative;
+        padding-bottom: 8px;
+        text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
+    }
+
+    .section-heading::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 5px;
+        background-color: #007bff;
+    }
+
+    /* Button Styles */
+    button {
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 1.25rem;
+        cursor: pointer;
+        font-size: 1rem;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+        font-weight: bold;
+    }
+
+    button.outline {
+        background: transparent;
+        border: 2px solid #007bff;
+        color: #007bff;
+        box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    button.outline:hover {
+        background-color: #007bff;
+        color: #ffffff;
+        transform: translateY(-3px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+    }
+
+    button.primary {
+        background: linear-gradient(45deg, #0056b3, #0069d9);
+        color: #ffffff;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+    }
+
+    button.primary:hover {
+        background: linear-gradient(45deg, #0069d9, #0056b3);
+        transform: translateY(-3px);
+    }
+
+    /* Input Fields */
+    .field-group input,
+    .field-group select {
+        width: 100%;
+        padding: 12px;
+        border: 1px solid #ced4da;
+        border-radius: 1.25rem;
+        margin-bottom: 16px;
+        font-size: 1rem;
+        background-color: #f8f9fa;
+        transition: all 0.3s ease;
+        box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+
+    .field-group input:focus,
+    .field-group select:focus {
+        border-color: #007bff;
+        outline: none;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    /* Card Styles */
+    .card {
+        background: #ffffff;
+        border-radius: 1.25rem;
+        padding: 2rem;
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        border: 1px solid #ced4da;
+        animation: cardAppear 0.3s ease-out forwards;
+    }
+
+    @keyframes cardAppear {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Progress Bar */
+    .progress {
+        height: 8px;
+        background-color: #e9f7fe;
+        margin-bottom: 1rem;
+        position: relative;
+        border-radius: 4px;
+    }
+
+    .progress-bar {
+        height: 100%;
+        background-color: #007bff;
+        border-radius: 4px;
+        transition: width 0.3s ease;
+    }
+
+    /* Education Section CSS */
+    .education-entry {
+        margin-bottom: 1rem;
+        border: 1px solid #ced4da;
+        padding: 1rem;
+        border-radius: 1.25rem;
+        position: relative;
+    }
+
+    .education-entry .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 1rem;
+    }
+
+    .education-entry .form-group label {
+        font-weight: bold;
+        margin-bottom: 0.5rem;
+    }
+
+    .education-entry .form-group input,
+    .education-entry .form-group select {
+        padding: 0.75rem;
+        font-size: 1rem;
+        border-radius: 1.25rem;
+        border: 1px solid #ced4da;
+        background-color: #f8f9fa;
+        transition: border-color 0.3s ease;
+    }
+
+    /* Actions */
+    .actions {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 2rem;
+    }
+
+    /* Add Section Button */
+    .add-section {
+        background: #007bff;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 0.5rem;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .add-section:hover {
+        background: #007bff;
+        opacity: 0.8;
+    }
+
+    /* Text Align */
+    .text-center {
+        text-align: center;
+    }
+
+    .mb-12 {
+        margin-bottom: 3rem;
+    }
+
+    .max-w-2xl {
+        max-width: 660px;
+    }
+
+    .mx-auto {
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    /* Responsive Styles */
+    @media (max-width: 768px) {
+        .container {
+            padding: 1.5rem;
+        }
+
+        .section-heading {
+            font-size: 1.25rem;
+            text-align: center;
+        }
+
+        .actions {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .card {
+            padding: 1.5rem;
+        }
+
+        .add-section {
+            width: 100%;
+            text-align: center;
+            margin-top: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .container {
+            padding: 1rem;
+        }
+
+        .section-heading {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .actions {
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .add-section {
+            width: 100%;
+            padding: 12px;
+        }
+        .error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: -10px;
+    margin-bottom: 10px;
+}
+
+input:invalid {
+    border-color: red;
+}
+
+    .tooltip {
+        position: absolute;
+        background: #333;
+        color: white;
+        padding: 5px 10px;
+        border-radius: 4px;
+        font-size: 12px;
+        z-index: 1000;
+        pointer-events: none;
+    }
+    
+    .error-message {
+        color: red;
+        font-size: 12px;
+        margin-top: 4px;
+        margin-bottom: 8px;
+    }
+    
+    input.invalid, select.invalid {
+        border-color: red;
+    }
+    
+    .remove-section {
+        cursor: pointer;
+        color: red;
+        float: right;
+        font-weight: bold;
+    }
+    
+    .remove-section:hover {
+        opacity: 0.8;
+    }
+    }
+</style>
+</head>
+<body>
+    <!-- HTML content remains the same, but removed all validation-related attributes -->
+    <div class="min-h-screen py-8">
+        <div class="container">
+          <div class="text-center mb-12">
+            <h1 class="text-4xl font-bold text-primary mb-4">Welcome Aboard!</h1>
+            <p class="text-muted-foreground text-lg max-w-2xl mx-auto">
+              We're excited to have you join us. Please complete the following steps to get started with your onboarding process.
+            </p>
+          </div>
+    
+          <!-- Step 1 - Personal Information -->
+          <div id="step-1" class="card">
+            <h3 class="section-heading">Personal Information</h3>
+            <div class="field-group">
+              <label for="name">Full Name</label>
+              <input type="text" id="name" name="name" required minlength="5" required oninput="filterNameInput(event)">
+            </div>
+            <div class="field-group">
+              <label for="father-name">Father's Name</label>
+              <input type="text" id="father-name" name="father-name" required minlength="5" required oninput="filterNameInput(event)">
+            </div>
+            <div class="field-group">
+              <label for="dob">Date of Birth</label>
+              <input type="date" id="dob" name="dob" required minlength="5">
+            </div>
+            <div class="field-group">
+              <label for="email">Email ID</label>
+              <input 
+                  type="email" 
+                  id="email" 
+                  name="email" 
+                  required
+                  pattern="[a-zA-Z0-9]+@(gmail|yahoo|outlook)\.com$"
+                  title="Please enter a valid email address (@gmail.com, @yahoo.com, or @outlook.com)"
+              >
+          </div>
+          <div class="field-group">
+              <label for="alt-email">Alternate Email ID</label>
+              <input 
+                  type="email" 
+                  id="alt-email" 
+                  name="alt-email" 
+                  required
+                  pattern="[a-zA-Z0-9]+@(gmail|yahoo|outlook)\.com$"
+                  title="Please enter a valid email address (@gmail.com, @yahoo.com, or @outlook.com)"
+              >
+          </div>
+      
+          <!-- Update mobile input fields -->
+          <div class="field-group">
+              <label for="mobile">Mobile Number</label>
+              <input 
+                  type="tel" 
+                  id="mobile" 
+                  name="mobile"
+                  required
+                  pattern="[0-9]{10}"
+                  maxlength="10"
+                  title="Please enter exactly 10 digits"
+              >
+          </div>
+          <div class="field-group">
+              <label for="alt-mobile">Alternate Mobile Number</label>
+              <input 
+                  type="tel" 
+                  id="alt-mobile" 
+                  name="alt-mobile"
+                  required
+                  pattern="[0-9]{10}"
+                  maxlength="10"
+                  title="Please enter exactly 10 digits"
+              >
+          </div>
+            <div class="field-group">
+              <label for="aadhar">Aadhar Number</label>
+              <input type="text" id="aadhar" name="aadhar" maxlength="12" required onkeydown="return event.key !== 'e' && event.key !== 'E'"
+                     oninput="validateAadhar()">
+              <span id="error-message" style="color: red; display: none;">Aadhar Number must be exactly 12 digits long.</span>
+           </div>
+
+            <div class="field-group">
+              <label for="documentUpload">Aadhar Document*</label>
+              <input type="file" id="documentUpload" accept=".pdf"  required style=" width: 100%; padding: 12px;">
+            </div>
+
+            <div class="field-group">
+                <label for="pan">PAN Number</label>
+                <input 
+                    type="text" 
+                    id="pan" 
+                    name="pan"
+                    
+                    required 
+                    minlength="10" 
+                    maxlength="10" 
+                    oninput="validatePAN(this)"
+                    
+                >
+                <span id="panError" class="error" style="color: red;"></span>
+            </div>
+
+            <div class="field-group">
+              <label for="documentUpload">PAN Documents*</label>
+              <input type="file" id="documentUpload" accept=".pdf" required style=" width: 100%; padding: 12px;">
+            </div>
+
+            <div class="actions">
+              <button class="primary" id="next-button">Next</button>
+            </div>
+          </div>
+    
+          <!-- Step 2 - Education -->
+          <div id="step-2" class="card" style="display:none;">
+            <h3 class="section-heading">Education</h3>
+            <div id="educationContainer">
+                <!-- Template for education entries -->
+                <div class="repeater-section education-entry">
+                    <span class="remove-section">&minus;</span>
+                    <div class="row">
+                        <div class="form-group">
+                            <label>Education Level *</label>
+                            <select class="edu-level" required>
+                                <option value="">Select</option>
+                                <option value="phd">Ph.D.</option>
+                                <option value="masters">Masters/Post-Graduation</option>
+                                <option value="bachelors">Bachelors/Graduation</option>
+                                <option value="diploma">Diploma</option>
+                                <option value="hsc">HSC/12th</option>
+                                <option value="ssc">SSC/10th</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Stream/Specialization *</label>
+                            <input type="text" class="edu-stream" required minlength="3" required oninput="filterNameInput(event)">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label>Institution Name *</label>
+                            <input type="text" class="edu-institution" required minlength="5" required oninput="filterNameInput(event)">
+                        </div>
+                        <div class="form-group">
+                            <label>Board/University *</label>
+                            <input type="text" class="edu-board" required minlength="3" required oninput="filterNameInput(event)">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group">
+                            <label>Year of Passing *</label>
+                            <input type="number" class="edu-year" min="0" max="100" step="0.01" required onkeydown="return event.key !== 'e' && event.key !== 'E'"
+                            oninput="this.value = this.value.replace(/[eE]/g, '')">
+                        </div>
+                        <div class="form-group">
+                            <label>Percentage/CGPA *</label>
+                            <input type="number" step="0.01" class="edu-percentage" min="0" max="100" required maxlength="3" onkeydown="return event.key !== 'e' && event.key !== 'E'"
+                            oninput="this.value = this.value.replace(/[eE]/g, '')">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="educationUpload">Education Certificates *</label>
+                        <input type="file" id="educationUpload" accept=".pdf"  required>
+                    </div>
+                </div>
+            </div>
+            <button type="button" class="add-section" id="addEducation">
+                <i class="fas fa-plus"></i> Add Education
+            </button>
+            <div class="actions">
+                <button class="outline" id="back-button-3">Back</button>
+                <button class="primary" id="next-button-3">Next</button>
+              </div>
+          </div>
+    
+          <!-- Step 3 - Address -->
+          <div id="step-3" class="card" style="display:none;">
+            <h3 class="section-heading">Address</h3>
+            
+            <!-- Permanent Address -->
+            <h4>Permanent Address</h4>
+            <div class="field-group">
+              <label for="permanent-street">Street Address</label>
+              <input type="text" id="permanent-street" name="permanent-street" required minlength="5">
+            </div>
+            <div class="field-group">
+              <label for="permanent-city">City</label>
+              <input type="text" id="permanent-city" name="permanent-city" required minlength="5" required oninput="filterNameInput(event)">
+            </div>
+            <div class="field-group">
+              <label for="permanent-state">State</label>
+              <input type="text" id="permanent-state" name="permanent-state" required minlength="5" required oninput="filterNameInput(event)">
+            </div>
+            <div class="field-group">
+              <label for="permanent-zipcode">Postal Code</label>
+              <input type="text" id="permanent-zipcode" name="permanent-zipcode" required minlength="6" maxlength="6" required oninput="filterUanInput(event)">
+            </div>
+            <div class="field-group">
+              <label for="permanent-country">Country</label>
+              <input type="text" id="permanent-country" name="permanent-country" required minlength="5" required oninput="filterNameInput(event)">
+            </div>
+    
+            <!-- Current Address -->
+            <h4>Current Address</h4>
+            <div class="field-group">
+              <label for="current-street">Street Address</label>
+              <input type="text" id="current-street" name="current-street" required minlength="5">
+            </div>
+            <div class="field-group">
+              <label for="current-city">City</label>
+              <input type="text" id="current-city" name="current-city" required minlength="5" required oninput="filterNameInput(event)">
+            </div>
+            <div class="field-group">
+              <label for="current-state">State</label>
+              <input type="text" id="current-state" name="current-state" required minlength="5" required oninput="filterNameInput(event)">
+            </div>
+            <div class="field-group">
+              <label for="current-zipcode">Postal Code</label>
+              <input type="text" id="current-zipcode" name="current-zipcode" required minlength="6" maxlength="6" required oninput="filterUanInput(event)">
+            </div>
+            <div class="field-group">
+              <label for="current-country">Country</label>
+              <input type="text" id="current-country" name="current-country" required minlength="5" required oninput="filterNameInput(event)"
+              >
+            </div>
+            
+            <div class="actions">
+              <button class="outline" id="back-button-3">Back</button>
+              <button class="primary" id="next-button-3">Next</button>
+            </div>
+          </div>
+    
+          <!-- Step 4 - Work History -->
+          <div id="step-4" class="card" style="display:none;">
+            <h3 class="section-heading">Work History</h3>
+            
+            <!-- Work History Entries Container -->
+            <div id="workHistoryContainer">
+                <!-- Template for work history entries -->
+                <div class="repeater-section work-history-entry">
+                    <span class="remove-section">&minus;</span>
+                    <div class="field-group">
+                        <label for="company-name">Company Name</label>
+                        <input type="text" class="company-name" name="company-name" required minlength="5" required oninput="filterNameInput(event)">
+                    </div>
+                    <div class="field-group">
+                        <label for="designation">Designation</label>
+                        <input type="text" class="designation" name="designation" required minlength="5" required oninput="filterNameInput(event)">
+                    </div>
+                    <div class="field-group">
+                      <label for="employment-period">Employment Period (in years)</label>
+                      <input type="text" 
+                             class="employment-period" 
+                             name="employment-period" 
+                             required 
+                             maxlength="2"
+                             pattern="^[0-9]{1,2}$"
+                             title="Please enter a valid employment period (1-99 years)"
+                             oninput="this.value = this.value.replace(/\D/g, '')"
+                             >
+                  </div>
+                    <div class="field-group">
+                        <label for="work-location">Location</label>
+                        <input type="text" class="work-location" name="work-location" required minlength="5" required oninput="filterNameInput(event)">
+                    </div>
+                    <div class="field-group">
+                        <label for="reason-for-leaving">Reason for Leaving</label>
+                        <input type="text" class="reason-for-leaving" name="reason-for-leaving" required minlength="5">
+                    </div>
+                    <div class="field-group">
+                      <label for="documentUpload">Work Documents*</label>
+                      <input type="file" id="documentUpload" accept=".pdf" multiple required style=" width: 100%; padding: 12px;">
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Button to add new work history entry -->
+            <button type="button" class="add-section" id="addWorkHistory">
+                <i class="fas fa-plus"></i> Add Work History
+            </button>
+        
+            <!-- Actions -->
+            <div class="actions">
+                <button class="outline" id="back-button-4">Back</button>
+                <button class="primary" id="next-button-4">Next</button>
+            </div>
+        </div>
+          <!-- Step 5 - Bank Details -->
+          <div id="step-5" class="card" style="display:none;">
+            <h3 class="section-heading">Bank Details</h3>
+            
+            <div class="field-group">
+              <label for="account-holder-name">Account Holder's Name</label>
+              <input type="text" id="account-holder-name" name="account-holder-name" required minlength="5" required oninput="filterNameInput(event)">
+            </div>
+            <div class="field-group">
+              <label for="bank-name">Bank Name</label>
+              <input type="text" id="bank-name" name="bank-name" required minlength="5" required oninput="filterNameInput(event)">
+            </div>
+            <div class="field-group">
+              <label for="account-number">Account Number</label>
+              <input type="text" id="account-number" name="account-number" required minlength="11" maxlength="16" required oninput="filterUanInput(event)">
+            </div>
+            <div class="field-group">
+                <label for="ifsc-code">IFSC Code</label>
+                <input 
+                    type="text"
+                    id="ifsc-code"
+                    name="ifsc-code"
+                    required
+                    minlength="11"
+                    maxlength="11"
+                    oninput="validateIFSCCode(event)"
+                >
+                <!-- Error message will be dynamically added here -->
+            </div>
+          
+          
+            <div class="field-group">
+              <label for="bank-branch">Bank Branch</label>
+              <input type="text" id="bank-branch" name="bank-branch" required minlength="5" required oninput="filterNameInput(event)">
+            </div>
+            <div class="field-group">
+              <label for="account-type">Account Type</label>
+              <select id="account-type" name="account-type" required>
+                <option value="savings">Savings</option>
+                <option value="current">Current</option>
+              </select>
+            </div>
+    
+            <div class="actions">
+              <button class="outline" id="back-button-5">Back</button>
+              <button class="primary" id="submit-button">Submit</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    <script>
+        // Global variables
+// Global variables
+let currentStep = 0;
+const steps = ['step-1', 'step-2', 'step-3', 'step-4', 'step-5'];
+
+let employeeData = {
+    status: 'pending',
+    department: 'Not Assigned',
+    submissionDate: new Date().toISOString()
+};
+
+// Utility functions for error handling
+function showError(input, message) {
+    removeError(input);
+    const errorDiv = document.createElement('div');
+    errorDiv.className = 'error-message';
+    errorDiv.textContent = message;
+    input.parentNode.insertBefore(errorDiv, input.nextSibling);
+    input.classList.add('invalid');
+}
+
+function removeError(input) {
+    const existingError = input.nextElementSibling;
+    if (existingError && existingError.className === 'error-message') {
+        existingError.remove();
+    }
+    input.classList.remove('invalid');
+}
+
+// Validation functions
+const validators = {
+    text: (value) => {
+        const trimmedValue = value.replace(/\s+/g, '');
+        const regex = /^[A-Za-z]{5,}$/;
+        return {
+            isValid: regex.test(trimmedValue),
+            message: 'Must be at least 5 characters long (excluding spaces) and contain only letters'
+        };
+    },
+
+    email: (value) => {
+        const regex = /^[a-zA-Z0-9._%+-]+@(gmail|yahoo|outlook)\.com$/;
+        return {
+            isValid: regex.test(value),
+            message: 'Please enter a valid email from gmail, yahoo, or outlook'
+        };
+    },
+
+    mobile: (value) => {
+        const regex = /^\d{10}$/;
+        return {
+            isValid: regex.test(value),
+            message: 'Mobile number must be exactly 10 digits'
+        };
+    },
+
+    aadhar: (value) => {
+        const regex = /^\d{12}$/;
+        return {
+            isValid: regex.test(value),
+            message: 'Aadhar number must be exactly 12 digits'
+        };
+    },
+
+    pan: (value) => {
+        const regex = /^[A-Z]{5}[0-9]{4}[A-Z]$/;
+        return {
+            isValid: regex.test(value),
+            message: 'PAN must be in format ABCDE1234F'
+        };
+    },
+
+    dob: (value) => {
+        const birthDate = new Date(value);
+        const today = new Date();
+        
+        // Check if future date
+        if (birthDate > today) {
+            return {
+                isValid: false,
+                message: 'Date of birth cannot be in the future'
+            };
+        }
+        
+        // Calculate age
+        let age = today.getFullYear() - birthDate.getFullYear();
+        const monthDiff = today.getMonth() - birthDate.getMonth();
+        if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+            age--;
+        }
+        
+        return {
+            isValid: age >= 22,
+            message: 'You must be at least 22 years old'
+        };
+    },
+
+    year: (value) => {
+        const currentYear = new Date().getFullYear();
+        const yearRegex = /^\d{4}$/;
+        const yearValue = parseInt(value);
+        
+        if (!yearRegex.test(value)) {
+            return {
+                isValid: false,
+                message: 'Year must be exactly 4 digits'
+            };
+        }
+        
+        if (yearValue > currentYear) {
+            return {
+                isValid: false,
+                message: 'Year cannot be in the future'
+            };
+        }
+        
+        return {
+            isValid: true,
+            message: ''
+        };
+    },
+
+    number: (value) => {
+        const num = parseFloat(value);
+        return {
+            isValid: !isNaN(num) && num >= 0 && num <= 100,
+            message: 'Please enter a valid number between 0 and 100'
+        };
+    },
+
+    zipcode: (value) => {
+        const regex = /^\d{6}$/;
+        return {
+            isValid: regex.test(value),
+            message: 'Postal code must be exactly 6 digits'
+        };
+    },
+
+    accountNumber: (value) => {
+        const regex = /^\d{9,18}$/;
+        return {
+            isValid: regex.test(value),
+            message: 'Account number must be between 9 and 18 digits'
+        };
+    },
+
+    ifsc: (value) => {
+        const regex = /^[A-Z]{4}0[A-Z0-9]{6}$/;
+        return {
+            isValid: regex.test(value),
+            message: 'IFSC must be in format ABCD0123456'
+        };
+    },
+
+    workDetails: (value) => {
+        const trimmedValue = value.replace(/\s+/g, '');
+        const regex = /^[A-Za-z]{5,}$/;
+        return {
+            isValid: regex.test(trimmedValue),
+            message: 'Must contain at least 5 alphabetic characters (excluding spaces)'
+        };
+    },
+
+    fileUpload: (input) => {
+        return {
+            isValid: input.files && input.files.length > 0,
+            message: 'Please upload the required document'
+        };
+    }
+};
+
+// Field validation function
+function validateField(input) {
+    const value = input.value.trim();
+    
+    // Handle required files
+    if (input.type === 'file' && input.required) {
+        const fileResult = validators.fileUpload(input);
+        if (!fileResult.isValid) {
+            showError(input, fileResult.message);
+            return false;
+        }
+        removeError(input);
+        return true;
+    }
+    
+    // Handle required fields
+    if (input.required && !value) {
+        showError(input, `${input.previousElementSibling.textContent.replace('*', '')} is required`);
+        return false;
+    }
+
+    // Skip validation if field is empty and not required
+    if (!value && !input.required) {
+        removeError(input);
+        return true;
+    }
+
+    // Validate Date of Birth
+    if (input.id === 'dob') {
+        const dobResult = validators.dob(value);
+        if (!dobResult.isValid) {
+            showError(input, dobResult.message);
+            return false;
+        }
+    }
+
+    // Validate Work History fields
+    if (input.className.includes('company-name') || 
+        input.className.includes('designation') || 
+        input.className.includes('work-location') || 
+        input.className.includes('reason-for-leaving')) {
+        const workResult = validators.workDetails(value);
+        if (!workResult.isValid) {
+            showError(input, workResult.message);
+            return false;
+        }
+    }
+
+    // Special handling for year of passing
+    if (input.className.includes('edu-year')) {
+        const yearResult = validators.year(value);
+        if (!yearResult.isValid) {
+            showError(input, yearResult.message);
+            return false;
+        }
+    } else {
+        // Determine validator type
+        let validatorType;
+        if (input.id.includes('name') || input.id.includes('city') || input.id.includes('state') || 
+            input.id.includes('country') || input.id.includes('branch') || input.className.includes('edu-stream') ||
+            input.className.includes('edu-institution') || input.className.includes('edu-board')) {
+            validatorType = 'text';
+        } else if (input.type === 'email') {
+            validatorType = 'email';
+        } else if (input.type === 'tel' || input.id.includes('mobile')) {
+            validatorType = 'mobile';
+        } else if (input.id.includes('aadhar')) {
+            validatorType = 'aadhar';
+        } else if (input.id.includes('pan')) {
+            validatorType = 'pan';
+        } else if (input.className.includes('edu-percentage')) {
+            validatorType = 'number';
+        } else if (input.id.includes('zipcode')) {
+            validatorType = 'zipcode';
+        } else if (input.id.includes('account-number')) {
+            validatorType = 'accountNumber';
+        } else if (input.id.includes('ifsc')) {
+            validatorType = 'ifsc';
+        }
+
+        const validator = validators[validatorType];
+        if (validator) {
+            const result = validator(value);
+            if (!result.isValid) {
+                showError(input, result.message);
+                return false;
+            }
+        }
+    }
+
+    removeError(input);
+    return true;
+}
+
+// Step validation function
+function validateStep(stepId) {
+    const step = document.getElementById(stepId);
+    const inputs = step.querySelectorAll('input, select');
+    let isValid = true;
+
+    inputs.forEach(input => {
+        if (!validateField(input)) {
+            isValid = false;
+        }
+    });
+
+    return isValid;
+}
+
+// Collection functions
+function collectEducationData(container) {
+    const educationData = [];
+    const entries = container.querySelectorAll('.education-entry');
+    
+    entries.forEach(entry => {
+        const eduData = {
+            level: entry.querySelector('.edu-level').value,
+            stream: entry.querySelector('.edu-stream').value,
+            institution: entry.querySelector('.edu-institution').value,
+            board: entry.querySelector('.edu-board').value,
+            yearOfPassing: entry.querySelector('.edu-year').value,
+            percentage: entry.querySelector('.edu-percentage').value
+        };
+        educationData.push(eduData);
+    });
+    
+    return educationData;
+}
+
+function collectWorkHistoryData(container) {
+    const workHistoryData = [];
+    const entries = container.querySelectorAll('.work-history-entry');
+    
+    entries.forEach(entry => {
+        const workData = {
+            companyName: entry.querySelector('.company-name').value,
+            designation: entry.querySelector('.designation').value,
+            employmentPeriod: entry.querySelector('.employment-period').value,
+            location: entry.querySelector('.work-location').value,
+            reasonForLeaving: entry.querySelector('.reason-for-leaving').value
+        };
+        workHistoryData.push(workData);
+    });
+    
+    return workHistoryData;
+}
+
+function collectStepData(stepId) {
+    const step = document.getElementById(stepId);
+    const data = {};
+    
+    const inputs = step.querySelectorAll('input:not([type="file"]), select');
+    inputs.forEach(input => {
+        if (input.id) {
+            data[input.id] = input.value;
+        } else if (input.name) {
+            data[input.name] = input.value;
+        }
+    });
+    
+    if (stepId === 'step-2') {
+        data.education = collectEducationData(step);
+    }
+    
+    if (stepId === 'step-4') {
+        data.workHistory = collectWorkHistoryData(step);
+    }
+    
+    return data;
+}
+
+// Navigation function
+function navigateToStep(direction) {
+    const currentStepId = steps[currentStep];
+    
+    if (direction === 'next') {
+        if (!validateStep(currentStepId)) {
+            const firstInvalid = document.querySelector(`#${currentStepId} .invalid`);
+            if (firstInvalid) {
+                firstInvalid.focus();
+            }
+            return false;
+        }
+        
+        const stepData = collectStepData(currentStepId);
+        Object.assign(employeeData, stepData);
+        
+        document.getElementById(currentStepId).style.display = "none";
+        currentStep++;
+        document.getElementById(steps[currentStep]).style.display = "block";
+        updateProgress();
+    } else if (direction === 'back') {
+        document.getElementById(currentStepId).style.display = "none";
+        currentStep--;
+        document.getElementById(steps[currentStep]).style.display = "block";
+        updateProgress();
+    }
+}
+
+// Add entry functions
+function addEntry(buttonId, containerId, templateSelector) {
+    const container = document.getElementById(containerId);
+    const template = container.querySelector(templateSelector);
+
+    document.getElementById(buttonId).addEventListener('click', () => {
+        const newEntry = template.cloneNode(true);
+        const inputs = newEntry.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.value = '';
+            removeError(input);
+        });
+        container.appendChild(newEntry);
+        
+        // Add remove button functionality
+        const removeBtn = newEntry.querySelector('.remove-section');
+        if (removeBtn) {
+            removeBtn.addEventListener('click', () => {
+                const entries = container.querySelectorAll(templateSelector);
+                if (entries.length > 1) {
+                    newEntry.remove();
+                } else {
+                    alert('At least one entry is required');
+                }
+            });
+        }
+    });
+}
+
+// Progress bar update
+function updateProgress() {
+    const progressBar = document.querySelector('.progress-bar');
+    if (progressBar) {
+        const progress = ((currentStep + 1) / steps.length) * 100;
+        progressBar.style.width = `${progress}%`;
+    }
+}
+
+// Input filters
+function filterNameInput(event) {
+    const input = event.target;
+    input.value = input.value.replace(/[^A-Za-z\s]/g, '');
+}
+
+function filterUanInput(event) {
+    const input = event.target;
+    input.value = input.value.replace(/[^0-9]/g, '');
+}
+
+function validateIFSCCode(event) {
+    const input = event.target;
+    input.value = input.value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+}
+
+// Initialize form
+document.addEventListener('DOMContentLoaded', function() {
+    // Show first step
+    document.getElementById(steps[currentStep]).style.display = "block";
+    
+    // Initialize add entry buttons
+    addEntry('addWorkHistory', 'workHistoryContainer', '.work-history-entry');
+    addEntry('addEducation', 'educationContainer', '.education-entry');
+
+    // Add input event listeners
+    const allInputs = document.querySelectorAll('input, select');
+    allInputs.forEach(input => {
+        input.addEventListener('input', () => validateField(input));
+        input.addEventListener('blur', () => validateField(input));
+    });
+
+    // Navigation button handlers
+    document.querySelectorAll('[id^="next-button"]').forEach(button => {
+        button.addEventListener('click', () => navigateToStep('next'));
+    });
+
+    document.querySelectorAll('[id^="back-button"]').forEach(button => {
+        button.addEventListener('click', () => navigateToStep('back'));
+    });
+
+    // Submit button handler
+    document.getElementById('submit-button').addEventListener('click', function(e) {
+        e.preventDefault();
+        
+        if (!validateStep(steps[currentStep])) {
+            const firstInvalid = document.querySelector(`#${steps[currentStep]} .invalid`);
+            if (firstInvalid) {
+                firstInvalid.focus();
+            }
+            return false;
+        }
+
+        const finalStepData = collectStepData(steps[currentStep]);
+        Object.assign(employeeData, finalStepData);
+        
+        // Save to localStorage
+        // Save to localStorage
+        let existingEmployees = JSON.parse(localStorage.getItem('employeeData')) || [];
+        employeeData.id = Date.now();
+        existingEmployees.push(employeeData);
+        localStorage.setItem('employeeData', JSON.stringify(existingEmployees));
+        
+        alert('Onboarding form submitted successfully!');
+        location.reload();
+    });
+
+    // Add custom styling for error messages
+    const style = document.createElement('style');
+    style.textContent = `
+        .error-message {
+            color: #ff0000;
+            font-size: 12px;
+            margin-top: 4px;
+            margin-bottom: 8px;
+            display: block;
+        }
+        
+        input.invalid {
+            border-color: #ff0000;
+            background-color: #fff0f0;
+        }
+        
+        input[type="file"].invalid {
+            border: 1px solid #ff0000;
+            padding: 5px;
+        }
+
+        .field-group {
+            margin-bottom: 1rem;
+            position: relative;
+        }
+
+        .field-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .field-group input[type="file"] {
+            display: block;
+            width: 100%;
+            padding: 0.5rem;
+            border: 1px solid #ced4da;
+            border-radius: 0.25rem;
+        }
+
+        .field-group input[type="file"].invalid {
+            border-color: #ff0000;
+        }
+
+        /* Add red asterisk for required fields */
+        .field-group label.required:after {
+            content: " *";
+            color: #ff0000;
+        }
+    `;
+    document.head.appendChild(style);
+
+    // Set max date for DOB input
+    const dobInput = document.getElementById('dob');
+    if (dobInput) {
+        // Calculate date for 22 years ago
+        const today = new Date();
+        const maxDate = new Date(today.getFullYear() - 22, today.getMonth(), today.getDate());
+        const formattedMaxDate = maxDate.toISOString().split('T')[0];
+        
+        // Set max attribute to today's date to prevent future dates
+        dobInput.setAttribute('max', today.toISOString().split('T')[0]);
+        
+        // Add validation on change
+        dobInput.addEventListener('change', function() {
+            const selectedDate = new Date(this.value);
+            if (selectedDate > maxDate) {
+                showError(this, 'You must be at least 22 years old');
+                this.value = '';
+            }
+        });
+    }
+
+    // Add required asterisk to labels
+    document.querySelectorAll('input[required], select[required]').forEach(input => {
+        const label = input.previousElementSibling;
+        if (label && label.tagName === 'LABEL') {
+            label.classList.add('required');
+        }
+    });
+
+    // File upload validation
+    document.querySelectorAll('input[type="file"]').forEach(fileInput => {
+        fileInput.addEventListener('change', function() {
+            if (this.required && (!this.files || this.files.length === 0)) {
+                showError(this, 'Please upload the required document');
+            } else if (this.files && this.files.length > 0) {
+                const file = this.files[0];
+                
+                // Validate file type (PDF only)
+                if (!file.type.match('application/pdf')) {
+                    showError(this, 'Please upload a PDF file');
+                    this.value = '';
+                    return;
+                }
+                
+                // Validate file size (max 5MB)
+                if (file.size > 5 * 1024 * 1024) {
+                    showError(this, 'File size must be less than 5MB');
+                    this.value = '';
+                    return;
+                }
+                
+                removeError(this);
+            }
+        });
+    });
+
+    // Initialize progress bar
+    updateProgress();
+});
+    </script>
+</body>
+</html>
+
+
+
+*********************************************************************************************************************************************************
+HR Code
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HR Dashboard - Employee Data</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: #f0f4f8;
+        }
+
+        .navbar {
+            background: #2c3e50;
+            padding: 1rem 2rem;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar h1 {
+            margin: 0;
+            font-size: 1.5rem;
+        }
+
+        .search-bar {
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            border: none;
+            width: 300px;
+        }
+
+        .main-container {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-card h3 {
+            margin: 0;
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .stat-card p {
+            margin: 0.5rem 0 0 0;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        .employee-list {
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .list-header {
+            padding: 1rem;
+            background: #f8f9fa;
+            border-bottom: 1px solid #dee2e6;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .employee-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .employee-table th,
+        .employee-table td {
+            padding: 1rem;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+
+        .employee-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+        }
+
+        .status-select {
+            padding: 8px 12px;
+            border-radius: 6px;
+            border: 2px solid #e2e8f0;
+            background-color: white;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            width: 130px;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='%234a5568' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14L2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 32px;
+        }
+
+        .status-select:focus {
+            outline: none;
+            border-color: #4299e1;
+            box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
+        }
+
+        /* Status-specific styles */
+        .status-select option[value="pending"] {
+            color: #b7791f;
+            background-color: #fdf6b2;
+        }
+
+        .status-select option[value="completed"] {
+            color: #046c4e;
+            background-color: #def7ec;
+        }
+
+        .status-select option[value="incomplete"] {
+            color: #9b2c2c;
+            background-color: #fde8e8;
+        }
+
+        .status-select.pending {
+            border-color: #fbd38d;
+            color: #b7791f;
+            background-color: #fffaf0;
+        }
+
+        .status-select.completed {
+            border-color: #9ae6b4;
+            color: #046c4e;
+            background-color: #f0fff4;
+        }
+
+        .status-select.incomplete {
+            border-color: #feb2b2;
+            color: #9b2c2c;
+            background-color: #fff5f5;
+        }
+
+        .action-btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+        }
+
+        .view-btn {
+            background: #007bff;
+            color: white;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+        }
+
+        .modal-content {
+            background: white;
+            margin: 2rem auto;
+            padding: 2rem;
+            max-width: 800px;
+            border-radius: 8px;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .close-btn {
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        .employee-details {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .detail-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .detail-section h3 {
+            color: #2c3e50;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 0.5rem;
+        }
+
+        .detail-item {
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-label {
+            font-weight: 600;
+            color: #7f8c8d;
+        }
+
+        @media (max-width: 768px) {
+            .employee-details {
+                grid-template-columns: 1fr;
+            }
+            
+            .navbar {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .search-bar {
+                width: 100%;
+            }
+        }
+
+        button {
+    background-color: #f44336;
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #d32f2f;
+}
+
+#status {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #333;
+}
+
+</style>
+</head>
+<body>
+    <nav class="navbar">
+        <h1>HR Onboarding Portal</h1>
+        <input type="text" class="search-bar" placeholder="Search employees..." oninput="searchEmployees(this.value)">
+        <div class="container">
+            <button id="clearButton">Clear All Records</button>
+            <p id="status"></p>
+       </div>
+    </nav>
+
+    <div class="main-container">
+        <div class="dashboard-stats">
+            <div class="stat-card">
+                <h3>Total Employees</h3>
+                <p>125</p>
+            </div>
+            <div class="stat-card">
+                <h3>Pending Forms</h3>
+                <p>15</p>
+            </div>
+            <div class="stat-card">
+                <h3>Completed Forms</h3>
+                <p>98</p>
+            </div>
+            <div class="stat-card">
+                <h3>Incomplete Forms</h3>
+                <p>12</p>
+            </div>
+        </div>
+
+        <div class="employee-list">
+            <div class="list-header">
+                <h2>Employee Onboarding Status</h2>
+            </div>
+            <table class="employee-table" id="employeeTable">
+                <thead>
+                    <tr>
+                        <th>Employee Name</th>
+                        <th>Email</th>
+                        <!-- <th>Department</th> -->
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Sample data -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Employee Details Modal -->
+    <div id="employeeModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Employee Details</h2>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <div id="employeeDetails" class="employee-details">
+                <!-- Details will be populated by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample employee data
+        // Global variables for state management
+let currentEmployees = [];
+let selectedEmployeeId = null;
+
+// Load and initialize dashboard data
+document.addEventListener('DOMContentLoaded', () => {
+    loadInitialData();
+    setupEventListeners();
+});
+
+// Initialize all data and display
+function loadInitialData() {
+    currentEmployees = loadEmployeeData();
+    populateTable();
+    updateDashboardStats();
+}
+
+// Setup all event listeners
+function setupEventListeners() {
+    // Search functionality
+    document.querySelector('.search-bar').addEventListener('input', (e) => {
+        searchEmployees(e.target.value);
+    });
+
+    // Modal close button
+    document.querySelector('.close-btn').addEventListener('click', closeModal);
+
+    // Click outside modal to close
+    window.addEventListener('click', (e) => {
+        const modal = document.getElementById('employeeModal');
+        if (e.target === modal) {
+            closeModal();
+        }
+    });
+
+    // Status filter buttons (if implemented)
+    document.querySelectorAll('.status-filter').forEach(button => {
+        button.addEventListener('click', () => filterByStatus(button.dataset.status));
+    });
+}
+
+// Load employee data from localStorage
+function loadEmployeeData() {
+    try {
+        const savedEmployees = JSON.parse(localStorage.getItem('employeeData')) || [];
+        return savedEmployees.map(emp => ({
+            id: emp.id || Date.now(),
+            name: emp.name || '',
+            email: emp.email || '',
+            // department: emp.department || 'Not Assigned',
+            status: emp.status || 'pending',
+            mobile: emp.mobile || '',
+            altMobile: emp['alt-mobile'] || '',
+            dob: emp.dob || '',
+            fatherName: emp['father-name'] || '',
+            altEmail: emp['alt-email'] || '',
+            
+            // Address Information
+            permanentAddress: {
+                street: emp['permanent-street'] || '',
+                city: emp['permanent-city'] || '',
+                state: emp['permanent-state'] || '',
+                zipcode: emp['permanent-zipcode'] || '',
+                country: emp['permanent-country'] || ''
+            },
+            currentAddress: {
+                street: emp['current-street'] || '',
+                city: emp['current-city'] || '',
+                state: emp['current-state'] || '',
+                zipcode: emp['current-zipcode'] || '',
+                country: emp['current-country'] || ''
+            },
+            
+            // Education Information
+            education: emp.education || [],
+            
+            // Work History
+            workHistory: emp.workHistory || [],
+            
+            // Bank Details
+            bank: {
+                accountHolder: emp['account-holder-name'] || '',
+                accountNumber: emp['account-number'] ? '****' + emp['account-number'].slice(-4) : '',
+                bankName: emp['bank-name'] || '',
+                ifscCode: emp['ifsc-code'] || '',
+                branch: emp['bank-branch'] || '',
+                accountType: emp['account-type'] || ''
+            },
+            
+            submissionDate: emp.submissionDate || new Date().toISOString()
+        }));
+    } catch (error) {
+        console.error('Error loading employee data:', error);
+        return [];
+    }
+}
+
+// Populate the main employee table
+function populateTable(employees = currentEmployees) {
+    const tableBody = document.querySelector('#employeeTable tbody');
+    tableBody.innerHTML = '';
+
+    employees.forEach(employee => {
+        const row = document.createElement('tr');
+        row.innerHTML = `
+            <td>${employee.name || 'N/A'}</td>
+            <td>${employee.email || 'N/A'}</td>
+            
+            <td>
+                <select class="status-select" onchange="updateEmployeeStatus(${employee.id}, this.value)">
+                    <option value="pending" ${employee.status === 'pending' ? 'selected' : ''}>Pending</option>
+                    <option value="completed" ${employee.status === 'completed' ? 'selected' : ''}>Completed</option>
+                    <option value="incomplete" ${employee.status === 'incomplete' ? 'selected' : ''}>Incomplete</option>
+                </select>
+            </td>
+            <td>
+                <button class="action-btn view-btn" onclick="showEmployeeDetails(${employee.id})">View Details</button>
+                
+            </td>
+        `;
+        tableBody.appendChild(row);
+    });
+}
+
+// Update dashboard statistics
+function updateDashboardStats() {
+    const stats = {
+        total: currentEmployees.length,
+        pending: currentEmployees.filter(emp => emp.status === 'pending').length,
+        completed: currentEmployees.filter(emp => emp.status === 'completed').length,
+        incomplete: currentEmployees.filter(emp => emp.status === 'incomplete').length
+    };
+
+    // Update the stats cards
+    document.querySelectorAll('.stat-card').forEach(card => {
+        const type = card.querySelector('h3').textContent.toLowerCase().split(' ')[0];
+        const countElement = card.querySelector('p');
+        if (countElement) {
+            countElement.textContent = stats[type] || 0;
+        }
+    });
+}
+
+// Search functionality
+function searchEmployees(searchTerm) {
+    if (!searchTerm) {
+        populateTable(currentEmployees);
+        return;
+    }
+
+    const searchTermLower = searchTerm.toLowerCase();
+    const filteredEmployees = currentEmployees.filter(employee => 
+        employee.name?.toLowerCase().includes(searchTermLower) ||
+        employee.email?.toLowerCase().includes(searchTermLower) ||
+        employee.department?.toLowerCase().includes(searchTermLower)
+    );
+
+    populateTable(filteredEmployees);
+}
+
+// Filter by status
+function filterByStatus(status) {
+    if (!status || status === 'all') {
+        populateTable(currentEmployees);
+        return;
+    }
+
+    const filteredEmployees = currentEmployees.filter(emp => emp.status === status);
+    populateTable(filteredEmployees);
+}
+
+// Show employee details in modal
+function showEmployeeDetails(employeeId) {
+    const employee = currentEmployees.find(emp => emp.id === employeeId);
+    if (!employee) return;
+
+    selectedEmployeeId = employeeId;
+    const detailsContainer = document.getElementById('employeeDetails');
+    
+    detailsContainer.innerHTML = `
+        <div class="detail-section">
+            <h3>Personal Information</h3>
+            <div class="detail-item">
+                <span class="detail-label">Name:</span> ${employee.name || 'N/A'}
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Father's Name:</span> ${employee.fatherName || 'N/A'}
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Email:</span> ${employee.email || 'N/A'}
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Alternate Email:</span> ${employee.altEmail || 'N/A'}
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Mobile:</span> ${employee.mobile || 'N/A'}
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Alternate Mobile:</span> ${employee.altMobile || 'N/A'}
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Date of Birth:</span> ${employee.dob || 'N/A'}
+            </div>
+        </div>
+
+        <div class="detail-section">
+            <h3>Current Address</h3>
+            <div class="detail-item">
+                <span class="detail-label">Street:</span> ${employee.currentAddress.street || 'N/A'}<br>
+                <span class="detail-label">City:</span> ${employee.currentAddress.city || 'N/A'}<br>
+                <span class="detail-label">State:</span> ${employee.currentAddress.state || 'N/A'}<br>
+                <span class="detail-label">Zipcode:</span> ${employee.currentAddress.zipcode || 'N/A'}<br>
+                <span class="detail-label">Country:</span> ${employee.currentAddress.country || 'N/A'}
+            </div>
+        </div>
+
+        <div class="detail-section">
+            <h3>Permanent Address</h3>
+            <div class="detail-item">
+                <span class="detail-label">Street:</span> ${employee.permanentAddress.street || 'N/A'}<br>
+                <span class="detail-label">City:</span> ${employee.permanentAddress.city || 'N/A'}<br>
+                <span class="detail-label">State:</span> ${employee.permanentAddress.state || 'N/A'}<br>
+                <span class="detail-label">Zipcode:</span> ${employee.permanentAddress.zipcode || 'N/A'}<br>
+                <span class="detail-label">Country:</span> ${employee.permanentAddress.country || 'N/A'}
+            </div>
+        </div>
+
+        <div class="detail-section">
+            <h3>Education</h3>
+            ${employee.education.map(edu => `
+                <div class="detail-item">
+                    <span class="detail-label">Level:</span> ${edu.level || 'N/A'}<br>
+                    <span class="detail-label">Stream:</span> ${edu.stream || 'N/A'}<br>
+                    <span class="detail-label">Institution:</span> ${edu.institution || 'N/A'}<br>
+                    <span class="detail-label">Board/University:</span> ${edu.board || 'N/A'}<br>
+                    <span class="detail-label">Year:</span> ${edu.year || 'N/A'}<br>
+                    <span class="detail-label">Percentage/CGPA:</span> ${edu.percentage || 'N/A'}
+                </div>
+            `).join('<hr>')}
+        </div>
+
+        <div class="detail-section">
+            <h3>Work History</h3>
+            ${employee.workHistory.map(work => `
+                <div class="detail-item">
+                    <span class="detail-label">Company:</span> ${work.companyName || 'N/A'}<br>
+                    <span class="detail-label">Designation:</span> ${work.designation || 'N/A'}<br>
+                    <span class="detail-label">Period:</span> ${work.employmentPeriod || 'N/A'}<br>
+                    <span class="detail-label">Location:</span> ${work.location || 'N/A'}<br>
+                    <span class="detail-label">Reason for Leaving:</span> ${work.reasonForLeaving || 'N/A'}
+                </div>
+            `).join('<hr>')}
+        </div>
+
+        <div class="detail-section">
+            <h3>Bank Details</h3>
+            <div class="detail-item">
+                <span class="detail-label">Account Holder:</span> ${employee.bank.accountHolder || 'N/A'}<br>
+                <span class="detail-label">Account Number:</span> ${employee.bank.accountNumber || 'N/A'}<br>
+                <span class="detail-label">Bank Name:</span> ${employee.bank.bankName || 'N/A'}<br>
+                <span class="detail-label">IFSC Code:</span> ${employee.bank.ifscCode || 'N/A'}<br>
+                <span class="detail-label">Branch:</span> ${employee.bank.branch || 'N/A'}<br>
+                <span class="detail-label">Account Type:</span> ${employee.bank.accountType || 'N/A'}
+            </div>
+        </div>
+    `;
+
+    document.getElementById('employeeModal').style.display = 'block';
+}
+
+// Update employee status
+function updateEmployeeStatus(employeeId, newStatus) {
+    const employeeIndex = currentEmployees.findIndex(emp => emp.id === employeeId);
+    if (employeeIndex === -1) return;
+
+    // Update status in memory
+    currentEmployees[employeeIndex].status = newStatus;
+
+    // Update in localStorage
+    const savedEmployees = JSON.parse(localStorage.getItem('employeeData')) || [];
+    const savedIndex = savedEmployees.findIndex(emp => emp.id === employeeId);
+    if (savedIndex !== -1) {
+        savedEmployees[savedIndex].status = newStatus;
+        localStorage.setItem('employeeData', JSON.stringify(savedEmployees));
+    }
+
+    // Update dashboard
+    updateDashboardStats();
+}
+
+
+
+// Close modal
+function closeModal() {
+    document.getElementById('employeeModal').style.display = 'none';
+    selectedEmployeeId = null;
+}
+
+// Export data (optional feature)
+function exportEmployeeData() {
+    const dataStr = JSON.stringify(currentEmployees, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'employee-data.json';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+document.getElementById('clearButton').addEventListener('click', function() {
+    // Show a confirmation dialog with "OK" and "Cancel"
+    const confirmation = confirm("Are you sure you want to clear all records from local storage?");
+
+    if (confirmation) {
+        // Clear everything from localStorage
+        localStorage.clear();
+
+        // Refresh the page after clearing
+        location.reload();
+
+        // Optionally, you can show the status message right here too, but it will disappear after the refresh.
+        // document.getElementById('status').textContent = 'All records have been cleared from local storage!';
+    } else {
+        // If Cancel is clicked, you can just update the status or do nothing
+        document.getElementById('status').textContent = 'Clear operation was canceled.';
+    }
+});
+</script>
+</body>
+</html>
